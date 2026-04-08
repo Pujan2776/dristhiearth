@@ -1,0 +1,28 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+<div class="a-login-wrap">
+  <div class="a-login-box">
+    <h1>Dristhi Earth</h1>
+    <p>Admin Panel — Restricted Access</p>
+
+    {% if error %}
+    <div class="a-error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('admin.login') }}" novalidate>
+      <div class="a-field">
+        <label class="a-label" for="email">Email</label>
+        <input class="a-input" type="email" id="email" name="email" autocomplete="email" required>
+      </div>
+      <div class="a-field">
+        <label class="a-label" for="password">Password</label>
+        <input class="a-input" type="password" id="password" name="password" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="a-submit">Sign In</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

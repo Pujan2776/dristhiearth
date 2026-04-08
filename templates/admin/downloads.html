@@ -1,0 +1,40 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Downloads{% endblock %}
+
+{% block content %}
+<div class="a-page-header">
+  <h1>Research Downloads</h1>
+  <p>{{ downloads | length }} total download events logged</p>
+</div>
+
+{% if downloads %}
+<div class="a-table-wrap">
+  <table class="a-table">
+    <thead>
+      <tr>
+        <th>Document</th>
+        <th>Organisation</th>
+        <th>Downloaded</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in downloads %}
+      <tr>
+        <td>
+          <span class="a-badge a-badge--gold">{{ d.document_slug }}</span>
+        </td>
+        <td class="muted">{{ d.organisation or '—' }}</td>
+        <td class="muted" style="white-space: nowrap;">
+          {{ d.created_at.strftime('%d %b %Y') }}<br>
+          <span style="font-size: 0.78rem;">{{ d.created_at.strftime('%H:%M UTC') }}</span>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="a-empty">No research downloads recorded yet</div>
+{% endif %}
+{% endblock %}

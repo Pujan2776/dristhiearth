@@ -1,0 +1,48 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Subscribers{% endblock %}
+
+{% block content %}
+<div class="a-page-header">
+  <h1>Newsletter Subscribers</h1>
+  <p>{{ subscribers | length }} total &mdash; {{ subscribers | selectattr('active') | list | length }} active</p>
+</div>
+
+{% if subscribers %}
+<div class="a-table-wrap">
+  <table class="a-table">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Source Page</th>
+        <th>Subscribed</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in subscribers %}
+      <tr>
+        <td>
+          <a href="mailto:{{ s.email }}" style="color: var(--accent);">{{ s.email }}</a>
+        </td>
+        <td class="muted">{{ s.source_page or '—' }}</td>
+        <td class="muted" style="white-space: nowrap;">
+          {{ s.created_at.strftime('%d %b %Y') }}<br>
+          <span style="font-size: 0.78rem;">{{ s.created_at.strftime('%H:%M UTC') }}</span>
+        </td>
+        <td>
+          {% if s.active %}
+            <span class="a-badge a-badge--yes">Active</span>
+          {% else %}
+            <span class="a-badge a-badge--no">Inactive</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="a-empty">No subscribers yet</div>
+{% endif %}
+{% endblock %}

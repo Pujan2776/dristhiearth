@@ -1,0 +1,48 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="a-page-header">
+  <h1>Dashboard</h1>
+  <p>Overview of all incoming data across Dristhi Earth</p>
+</div>
+
+<div class="a-stats">
+  <div class="a-stat">
+    <span class="a-stat__number">{{ stats.total_contacts }}</span>
+    <span class="a-stat__label">Total Contacts</span>
+  </div>
+  <div class="a-stat {% if stats.unresponded_contacts > 0 %}a-stat--alert{% endif %}">
+    <span class="a-stat__number">{{ stats.unresponded_contacts }}</span>
+    <span class="a-stat__label">Unresponded</span>
+  </div>
+  <div class="a-stat">
+    <span class="a-stat__number">{{ stats.total_subscribers }}</span>
+    <span class="a-stat__label">Subscribers</span>
+  </div>
+  <div class="a-stat">
+    <span class="a-stat__number">{{ stats.total_downloads }}</span>
+    <span class="a-stat__label">Research Downloads</span>
+  </div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border);">
+  <div style="background: var(--surface); padding: 24px;">
+    <p style="font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px;">Quick Links</p>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <a href="{{ url_for('admin.contacts') }}"    style="color: var(--accent); font-size: 0.88rem;">→ View all contacts</a>
+      <a href="{{ url_for('admin.subscribers') }}" style="color: var(--accent); font-size: 0.88rem;">→ View all subscribers</a>
+      <a href="{{ url_for('admin.downloads') }}"   style="color: var(--accent); font-size: 0.88rem;">→ View research downloads</a>
+    </div>
+  </div>
+  <div style="background: var(--surface); padding: 24px;">
+    <p style="font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px;">Public Site</p>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <a href="/" target="_blank" style="color: var(--accent); font-size: 0.88rem;">→ Homepage</a>
+      <a href="/contact" target="_blank" style="color: var(--accent); font-size: 0.88rem;">→ Contact form</a>
+      <a href="/research" target="_blank" style="color: var(--accent); font-size: 0.88rem;">→ Research page</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

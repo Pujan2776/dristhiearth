@@ -1,0 +1,68 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Contacts{% endblock %}
+
+{% block content %}
+<div class="a-page-header">
+  <h1>Contact Submissions</h1>
+  <p>{{ contacts | length }} total &mdash; {{ contacts | selectattr('responded', 'equalto', False) | list | length }} unresponded</p>
+</div>
+
+{% if contacts %}
+<div class="a-table-wrap">
+  <table class="a-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Organisation</th>
+        <th>Email</th>
+        <th>Service</th>
+        <th>Message</th>
+        <th>Received</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in contacts %}
+      <tr>
+        <td>{{ c.name }}</td>
+        <td class="muted">{{ c.organisation }}</td>
+        <td>
+          <a href="mailto:{{ c.email }}" style="color: var(--accent);">{{ c.email }}</a>
+        </td>
+        <td class="muted">{{ c.service_interest or '—' }}</td>
+        <td>
+          <span class="truncate" title="{{ c.message }}">
+            {{ c.message[:100] }}{% if c.message | length > 100 %}…{% endif %}
+          </span>
+        </td>
+        <td class="muted" style="white-space: nowrap;">
+          {{ c.created_at.strftime('%d %b %Y') }}<br>
+          <span style="font-size: 0.78rem;">{{ c.created_at.strftime('%H:%M UTC') }}</span>
+        </td>
+        <td>
+          {% if c.responded %}
+            <span class="a-badge a-badge--yes">Responded</span>
+          {% else %}
+            <span class="a-badge a-badge--no">Pending</span>
+          {% endif %}
+        </td>
+        <td>
+          <form method="POST" action="{{ url_for('admin.toggle_responded', contact_id=c.id) }}">
+            {% if c.responded %}
+              <button type="submit" class="a-btn a-btn--undo">Mark pending</button>
+            {% else %}
+              <button type="submit" class="a-btn a-btn--respond">Mark responded</button>
+            {% endif %}
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="a-empty">No contact submissions yet</div>
+{% endif %}
+{% endblock %}

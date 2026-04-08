@@ -3,10 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask_bcrypt import Bcrypt
 from config import config
 import os
 
 db = SQLAlchemy()
+bcrypt = Bcrypt()
 limiter = Limiter(key_func=get_remote_address, default_limits=["200 per day", "50 per hour"])
 
 
@@ -26,11 +28,17 @@ def create_app(config_name=None):
     app.config.from_object(config[config_name])
 
     db.init_app(app)
+    bcrypt.init_app(app)
     CORS(app, resources={r"/api/*": {"origins": "*"}})
     limiter.init_app(app)
 
     from app.routes import main as main_blueprint
     app.register_blueprint(main_blueprint)
+
+    from app.admin import admin as admin_blueprint
+    from app.admin import bcrypt as admin_bcrypt
+    admin_bcrypt.init_app(app)
+    app.register_blueprint(admin_blueprint)
 
     with app.app_context():
         db.create_all()

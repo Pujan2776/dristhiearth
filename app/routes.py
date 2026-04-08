@@ -1,5 +1,8 @@
 import hashlib
+import logging
 import os
+
+logger = logging.getLogger(__name__)
 from datetime import datetime, timezone
 from flask import (
     Blueprint,
@@ -12,7 +15,7 @@ from flask import (
 from app import db, limiter
 from app.models import Contact, NewsletterSubscriber, ResearchDownload
 from app.validators import is_valid_email, are_required_fields_present, sanitise_string
-from app.email_service import send_contact_notification, send_newsletter_confirmation
+from app.email_service import send_contact_notification, send_enquiry_confirmation, send_newsletter_confirmation
 
 main = Blueprint("main", __name__)
 
@@ -91,11 +94,21 @@ def api_contact():
     try:
         db.session.add(contact)
         db.session.commit()
-        send_contact_notification(contact)
-        return jsonify({"success": True, "message": "Your enquiry has been received. We will respond within 48 hours."}), 201
-    except Exception as exc:
+    except Exception:
         db.session.rollback()
         return jsonify({"success": False, "errors": {"general": "A server error occurred. Please try again."}}), 500
+
+    try:
+        send_contact_notification(contact)
+    except Exception as exc:
+        logger.error("send_contact_notification failed: %s", exc)
+
+    try:
+        send_enquiry_confirmation(contact)
+    except Exception as exc:
+        logger.error("send_enquiry_confirmation failed: %s", exc)
+
+    return jsonify({"success": True, "message": "Your enquiry has been received. We will respond within 48 hours."}), 201
 
 
 @main.route("/api/newsletter", methods=["POST"])
