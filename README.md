@@ -1,4 +1,4 @@
-# Drishti Earth
+# Dristhi Earth
 
 Environmental Intelligence for the Hindu Kush Himalayan Region.
 
@@ -146,4 +146,4 @@ dristhiearth/
 
 ## Licence
 
-Copyright 2026 Drishti Earth Limited. All rights reserved.
+Copyright 2026 Dristhi Earth Limited. All rights reserved.

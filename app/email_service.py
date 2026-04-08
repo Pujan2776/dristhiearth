@@ -15,12 +15,12 @@ def send_contact_notification(contact) -> bool:
     to_email = os.environ.get("CONTACT_EMAIL", "pujanadhikari301@gmail.com")
     from_email = os.environ.get("FROM_EMAIL", "info@dristhiearth.com")
 
-    subject = f"New Enquiry — Drishti Earth: {contact.name} from {contact.organisation}"
+    subject = f"New Enquiry — Dristhi Earth: {contact.name} from {contact.organisation}"
 
     html_content = f"""
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0A1A0C; color: #F4F0E8; padding: 32px;">
         <h2 style="color: #C8943A; border-bottom: 1px solid #1E3322; padding-bottom: 16px;">
-            New Enquiry — Drishti Earth
+            New Enquiry — Dristhi Earth
         </h2>
 
         <table style="width: 100%; border-collapse: collapse;">
@@ -84,9 +84,9 @@ def send_newsletter_confirmation(email: str) -> bool:
 
     html_content = """
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0A1A0C; color: #F4F0E8; padding: 32px;">
-        <h2 style="color: #C8943A;">Drishti Earth — Research Updates</h2>
+        <h2 style="color: #C8943A;">Dristhi Earth — Research Updates</h2>
         <p style="color: #F4F0E8; line-height: 1.7;">
-            You are now subscribed to Drishti Earth research updates. We publish
+            You are now subscribed to Dristhi Earth research updates. We publish
             analysis on environmental intelligence, climate finance flows, and
             data infrastructure across the Hindu Kush Himalayan region.
         </p>
@@ -96,7 +96,7 @@ def send_newsletter_confirmation(email: str) -> bool:
         </p>
         <hr style="border: none; border-top: 1px solid #1E3322; margin: 24px 0;">
         <p style="color: #7A9B7E; font-size: 12px;">
-            Drishti Earth Limited &mdash; Preston, Lancashire, UK
+            Dristhi Earth Limited &mdash; Preston, Lancashire, UK
         </p>
     </div>
     """
@@ -104,7 +104,7 @@ def send_newsletter_confirmation(email: str) -> bool:
     message = Mail(
         from_email=from_email,
         to_emails=email,
-        subject="Drishti Earth — Research Updates Confirmed",
+        subject="Dristhi Earth — Research Updates Confirmed",
         html_content=html_content,
     )
 
