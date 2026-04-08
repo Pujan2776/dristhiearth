@@ -144,6 +144,13 @@ p:last-child { margin-bottom: 0; }
 
 .nav__logo {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav__logo > span {
+  display: flex;
   flex-direction: column;
   gap: 1px;
 }
