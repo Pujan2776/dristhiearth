@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: drishti-earth
+    env: python
+    region: frankfurt
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn run:app
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: SENDGRID_API_KEY
+        sync: false
+      - key: CONTACT_EMAIL
+        value: pujanadhikari301@gmail.com
+      - key: DATABASE_URL
+        fromDatabase:
+          name: drishti-earth-db
+          property: connectionString
+
+databases:
+  - name: drishti-earth-db
+    region: frankfurt
+    plan: free

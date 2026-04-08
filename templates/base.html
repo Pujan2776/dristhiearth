@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{% block meta_description %}Drishti Earth provides AI-powered environmental intelligence for governments, development banks, and infrastructure operators across the Hindu Kush Himalayan region.{% endblock %}">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Drishti Earth">
+  <meta property="og:title" content="{% block og_title %}Drishti Earth — Environmental Intelligence for the HKH Region{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}AI-powered environmental intelligence for governments, development banks, and infrastructure operators in the Hindu Kush Himalayan region.{% endblock %}">
+  <link rel="canonical" href="https://dristhiearth.com{{ request.path }}">
+  <title>{% block title %}Drishti Earth{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Drishti Earth — Home">
+        <span class="nav__logo-text">Drishti Earth</span>
+        <span class="nav__logo-sub">Environmental Intelligence</span>
+      </a>
+
+      <div class="nav__links" role="list">
+        <a href="/about" class="nav__link" role="listitem">About</a>
+        <a href="/services" class="nav__link" role="listitem">Services</a>
+        <a href="/research" class="nav__link" role="listitem">Research</a>
+        <a href="/partners" class="nav__link" role="listitem">Partners</a>
+        <a href="/contact" class="nav__cta" role="listitem">Enquire</a>
+      </div>
+
+      <button class="nav__hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav Overlay -->
+  <div class="nav__mobile" role="dialog" aria-label="Mobile navigation">
+    <a href="/" class="nav__mobile-link">Home</a>
+    <a href="/about" class="nav__mobile-link">About</a>
+    <a href="/services" class="nav__mobile-link">Services</a>
+    <a href="/research" class="nav__mobile-link">Research</a>
+    <a href="/partners" class="nav__mobile-link">Partners</a>
+    <a href="/contact" class="nav__mobile-link">Enquire</a>
+  </div>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <span class="footer__brand-name">Drishti Earth</span>
+          <span class="footer__brand-tagline">Environmental Intelligence — HKH Region</span>
+          <p class="footer__brand-desc">
+            Providing AI-powered environmental data intelligence for governments,
+            international organisations, infrastructure operators, and financial
+            institutions operating in the Hindu Kush Himalayan region.
+          </p>
+        </div>
+
+        <div>
+          <p class="footer__col-title">Navigate</p>
+          <nav class="footer__links">
+            <a href="/" class="footer__link">Home</a>
+            <a href="/about" class="footer__link">About</a>
+            <a href="/services" class="footer__link">Services</a>
+            <a href="/research" class="footer__link">Research</a>
+            <a href="/partners" class="footer__link">Partners</a>
+            <a href="/contact" class="footer__link">Contact</a>
+          </nav>
+        </div>
+
+        <div>
+          <p class="footer__col-title">Services</p>
+          <nav class="footer__links">
+            <a href="/services#market-intelligence" class="footer__link">South Asian Market Intelligence</a>
+            <a href="/services#data-research" class="footer__link">Environmental Data Research</a>
+            <a href="/services#nepal-data" class="footer__link">Data Services — Nepal</a>
+            <a href="/services#platform" class="footer__link">AI Intelligence Platform</a>
+          </nav>
+        </div>
+
+        <div>
+          <p class="footer__col-title">Contact</p>
+          <p class="footer__contact-item">
+            <a href="mailto:info@dristhiearth.com">info@dristhiearth.com</a>
+          </p>
+          <p class="footer__contact-item">
+            <a href="https://linkedin.com/company/drishti-earth" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </p>
+          <p class="footer__contact-item">Preston, Lancashire, UK</p>
+          <p class="footer__contact-item">Kathmandu, Nepal (in establishment)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; width: 100%;">
+        <span class="footer__copyright">&copy; 2026 Drishti Earth Limited. All rights reserved.</span>
+        <span class="footer__legal">Company registered in England and Wales</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
