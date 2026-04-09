@@ -1522,6 +1522,58 @@ p:last-child { margin-bottom: 0; }
 .mt-md { margin-top: 32px; }
 .mt-lg { margin-top: 48px; }
 
+/* ── Image Strip ── */
+.img-strip {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  height: 320px;
+  overflow: hidden;
+  gap: 4px;
+}
+
+.img-strip img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.img-strip img:hover {
+  transform: scale(1.04);
+}
+
+/* ── Research Image Banner ── */
+.research-img-banner {
+  position: relative;
+  height: 280px;
+  overflow: hidden;
+}
+
+.research-img-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.research-img-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(transparent, rgba(10, 26, 12, 0.9));
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+.research-img-overlay p {
+  margin: 0;
+}
+
 /* ── Responsive — 900px ── */
 @media (max-width: 900px) {
   :root { --gap: 24px; }
@@ -1571,6 +1623,18 @@ p:last-child { margin-bottom: 0; }
 @media (max-width: 600px) {
   .section { padding: 64px 0; }
   .hero { min-height: 90vh; }
+
+  .img-strip {
+    grid-template-columns: 1fr;
+    height: 200px;
+  }
+
+  .img-strip img:not(:first-child) {
+    display: none;
+  }
+
+  .research-img-banner { height: 180px; }
+  .research-img-overlay { font-size: 0.9rem; padding: 1.25rem; }
 
   .form-row { grid-template-columns: 1fr; }
 
