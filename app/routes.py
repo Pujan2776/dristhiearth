@@ -11,6 +11,7 @@ from flask import (
     jsonify,
     send_from_directory,
     abort,
+    Response,
 )
 from app import db, limiter
 from app.models import Contact, NewsletterSubscriber, ResearchDownload
@@ -57,6 +58,44 @@ def contact():
 
 
 # ── API routes ─────────────────────────────────────────────────────────────────
+
+@main.route("/robots.txt")
+def robots():
+    content = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Disallow: /admin\n"
+        "Sitemap: https://www.dristhiearth.com/sitemap.xml\n"
+    )
+    return Response(content, mimetype="text/plain")
+
+
+@main.route("/sitemap.xml")
+def sitemap():
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    urls = [
+        "/",
+        "/about",
+        "/services",
+        "/research",
+        "/partners",
+        "/contact",
+    ]
+    base = "https://www.dristhiearth.com"
+    xml_parts = ['<?xml version="1.0" encoding="UTF-8"?>',
+                 '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for path in urls:
+        xml_parts.append(
+            f"  <url>\n"
+            f"    <loc>{base}{path}</loc>\n"
+            f"    <lastmod>{today}</lastmod>\n"
+            f"    <changefreq>monthly</changefreq>\n"
+            f"    <priority>{'1.0' if path == '/' else '0.8'}</priority>\n"
+            f"  </url>"
+        )
+    xml_parts.append("</urlset>")
+    return Response("\n".join(xml_parts), mimetype="application/xml")
+
 
 @main.route("/api/health")
 def health():
