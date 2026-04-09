@@ -13,6 +13,7 @@
     {% endif %}
 
     <form method="POST" action="{{ url_for('admin.login') }}" novalidate>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
       <div class="a-field">
         <label class="a-label" for="email">Email</label>
         <input class="a-input" type="email" id="email" name="email" autocomplete="email" required>

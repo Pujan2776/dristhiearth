@@ -5,6 +5,12 @@
 (function () {
   'use strict';
 
+  // ── CSRF token helper ─────────────────────────────────────
+  function getCsrfToken() {
+    var meta = document.querySelector('meta[name="csrf-token"]');
+    return meta ? meta.getAttribute('content') : '';
+  }
+
   // ── Nav scroll effect ──────────────────────────────────────
   const nav = document.querySelector('.nav');
   if (nav) {
@@ -89,7 +95,7 @@
 
       fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrfToken() },
         body: JSON.stringify(data),
       })
         .then(function (res) { return res.json().then(function (body) { return { status: res.status, body: body }; }); })
@@ -130,7 +136,7 @@
 
       fetch('/api/newsletter', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrfToken() },
         body: JSON.stringify({ email: emailInput ? emailInput.value : '', source_page: sourcePage }),
       })
         .then(function (res) { return res.json().then(function (body) { return { status: res.status, body: body }; }); })

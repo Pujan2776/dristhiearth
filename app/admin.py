@@ -9,7 +9,7 @@ from flask import (
     flash,
 )
 from flask_bcrypt import Bcrypt
-from app import db
+from app import db, limiter
 from app.models import Contact, NewsletterSubscriber, ResearchDownload
 
 admin = Blueprint("admin", __name__, url_prefix="/admin")
@@ -33,6 +33,7 @@ def login_required(f):
 
 # ── Login / Logout ─────────────────────────────────────────────────────────────
 @admin.route("/login", methods=["GET", "POST"])
+@limiter.limit("5 per 15 minutes")
 def login():
     if session.get("admin_logged_in"):
         return redirect(url_for("admin.dashboard"))

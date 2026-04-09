@@ -4,11 +4,14 @@ from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_bcrypt import Bcrypt
+from flask_talisman import Talisman
+from flask_wtf.csrf import CSRFProtect
 from config import config
 import os
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
+csrf = CSRFProtect()
 limiter = Limiter(key_func=get_remote_address, default_limits=["200 per day", "50 per hour"])
 
 
@@ -29,11 +32,14 @@ def create_app(config_name=None):
 
     db.init_app(app)
     bcrypt.init_app(app)
+    csrf.init_app(app)
+    Talisman(app, content_security_policy=False)
     CORS(app, resources={r"/api/*": {"origins": "*"}})
     limiter.init_app(app)
 
     from app.routes import main as main_blueprint
     app.register_blueprint(main_blueprint)
+    csrf.exempt(main_blueprint)  # API routes use JSON; CSRF not applicable
 
     from app.admin import admin as admin_blueprint
     from app.admin import bcrypt as admin_bcrypt
